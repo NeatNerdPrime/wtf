@@ -31,7 +31,7 @@ require (
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
-	github.com/jedib0t/go-pretty/v6 v6.1.0
+	github.com/jedib0t/go-pretty/v6 v6.2.6
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/lib/pq v1.2.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
@@ -46,7 +46,7 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/piquette/finance-go v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pkg/profile v1.5.0
+	github.com/pkg/profile v1.6.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20211001102648-5508f4b00266
 	github.com/shirou/gopsutil v2.20.9+incompatible
@@ -57,7 +57,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1 // indirect
 	github.com/ssor/bom v0.0.0-20170718123548-6386211fdfcf // indirect
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
 	github.com/xanzy/go-gitlab v0.39.0
