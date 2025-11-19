@@ -2,6 +2,7 @@ package cmdrunner
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -150,7 +151,11 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	f, err := pty.Start(cmd)
 	// The command has exited, print any error messages
 	if err != nil {
-		return err
+		if widget.settings.ptySuppressErrors {
+			return cmd.Wait()
+		} else {
+			return err
+		}
 	}
 
 	// Make sure to close the pty at the end.
@@ -172,6 +177,9 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	// Extract output
 	_, err = io.Copy(widget.buffer, f)
 	if err != nil {
+		if widget.settings.ptySuppressErrors && errors.Is(err, syscall.EIO) {
+			return cmd.Wait()
+		}
 		return err
 	}
 	return cmd.Wait()
