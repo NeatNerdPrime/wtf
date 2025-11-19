@@ -25,7 +25,8 @@ type Widget struct {
 	view.MultiSourceWidget
 	view.TextWidget
 
-	settings *Settings
+	settings    *Settings
+	fileWatcher *watcher.Watcher
 }
 
 // NewWidget creates a new instance of a widget
@@ -128,7 +129,8 @@ func (widget *Widget) plainText() string {
 }
 
 func (widget *Widget) watchForFileChanges() {
-	watch := watcher.New()
+	widget.fileWatcher = watcher.New()
+	watch := widget.fileWatcher
 	watch.FilterOps(watcher.Write)
 
 	go func() {
@@ -143,6 +145,7 @@ func (widget *Widget) watchForFileChanges() {
 				return
 			case quit := <-widget.QuitChan():
 				if quit {
+					watch.Close()
 					return
 				}
 			}

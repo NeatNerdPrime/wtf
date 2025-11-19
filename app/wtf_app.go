@@ -31,6 +31,7 @@ type WtfApp struct {
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
+	configWatcher  *watcher.Watcher
 
 	// The redrawChan channel is used to allow modules to signal back to the main loop that
 	// the screen needs to be explicitly redrawn, instead of waiting for tcell to redraw
@@ -136,6 +137,9 @@ func (wtfApp *WtfApp) Start() {
 // Stop kills all the currently-running widgets in this app
 func (wtfApp *WtfApp) Stop() {
 	wtfApp.stopAllWidgets()
+	if wtfApp.configWatcher != nil {
+		wtfApp.configWatcher.Close()
+	}
 	close(wtfApp.redrawChan)
 }
 
@@ -203,7 +207,8 @@ func (wtfApp *WtfApp) scheduleWidgets() {
 }
 
 func (wtfApp *WtfApp) watchForConfigChanges() {
-	watch := watcher.New()
+	wtfApp.configWatcher = watcher.New()
+	watch := wtfApp.configWatcher
 
 	// Notify write events
 	watch.FilterOps(watcher.Write)
